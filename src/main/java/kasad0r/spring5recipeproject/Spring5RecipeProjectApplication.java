@@ -9,5 +9,5 @@ public class Spring5RecipeProjectApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(Spring5RecipeProjectApplication.class, args);
 	}
-
+	
 }
