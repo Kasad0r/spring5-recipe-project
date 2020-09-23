@@ -9,5 +9,5 @@ workflows:
       build:
         docker:
             - image: cimg/openjdk:11.0.3
-      step:
-        - maven/test
+        step:
+          - maven/test
