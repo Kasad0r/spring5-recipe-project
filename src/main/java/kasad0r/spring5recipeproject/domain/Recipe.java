@@ -12,7 +12,7 @@ import java.util.Set;
  * @project spring5-recipe-project
  */
 @lombok.Data
-@EqualsAndHashCode(exclude = {"ingredients"})
+@EqualsAndHashCode(exclude = {"ingredients","categories"})
 @Entity
 public class Recipe {
     @Id
