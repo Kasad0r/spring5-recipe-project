@@ -8,7 +8,8 @@ jobs:
     docker:
       - image: cimg/openjdk:11.0.3
     steps:
-      - maven/test
+      - maven/test:
+          command: '-X verify'
 workflows:
   workflow:
     jobs:
