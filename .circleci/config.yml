@@ -3,11 +3,13 @@ version: 2.1
 orbs:
   maven: circleci/maven@0.0.12
 
-workflows:
+jobs:
   maven_test:
+    docker:
+      - image: cimg/openjdk:11.0.3
+    step:
+      - maven/test
+workflows:
+  workflow:
     jobs:
-      build:
-        docker:
-            - image: cimg/openjdk:11.0.3
-        step:
-          - maven/test
+      - maven_test
