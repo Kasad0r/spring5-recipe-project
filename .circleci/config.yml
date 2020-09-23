@@ -7,7 +7,7 @@ jobs:
   maven_test:
     docker:
       - image: cimg/openjdk:11.0.3
-    step:
+    steps:
       - maven/test
 workflows:
   workflow:
