@@ -4,14 +4,13 @@ orbs:
   maven: circleci/maven@0.0.12
 
 jobs:
-  test:
+  maven_test:
     docker:
       - image: circleci/openjdk:11.0.3-jdk-stretch
     steps:
       - checkout
       - maven/test
 workflows:
-  version: 2
   workflow:
     jobs:
-      - test
+      - maven_test
