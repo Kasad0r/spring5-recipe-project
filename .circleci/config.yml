@@ -2,11 +2,11 @@ version: 2.1
 
 orbs:
   maven: circleci/maven@0.0.12
-
-jobs:
-  build:
+executors:
+  my-executor:
     docker:
       - image: circleci/openjdk:11.0.3-jdk-stretch
-    steps:
-      - checkout
-      - run: ./mvnw package
+workflows:
+  maven_test:
+    jobs:
+      - maven/test
