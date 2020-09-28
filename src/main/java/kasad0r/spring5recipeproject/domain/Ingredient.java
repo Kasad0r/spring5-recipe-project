@@ -1,5 +1,7 @@
 package kasad0r.spring5recipeproject.domain;
 
+import lombok.ToString;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -9,6 +11,7 @@ import java.math.BigDecimal;
  * @project spring5-recipe-project
  */
 @lombok.Data
+@ToString(exclude = {"recipe"})
 @Entity
 public class Ingredient {
     @Id

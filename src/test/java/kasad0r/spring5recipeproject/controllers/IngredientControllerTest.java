@@ -1,6 +1,8 @@
 package kasad0r.spring5recipeproject.controllers;
 
+import kasad0r.spring5recipeproject.commands.IngredientCommand;
 import kasad0r.spring5recipeproject.commands.RecipeCommand;
+import kasad0r.spring5recipeproject.services.IngredientService;
 import kasad0r.spring5recipeproject.services.RecipeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,6 +26,8 @@ class IngredientControllerTest {
     @Mock
     RecipeService recipeService;
 
+    @Mock
+    IngredientService ingredientService;
     IngredientController ingredientController;
 
     MockMvc mockMvc;
@@ -32,7 +36,7 @@ class IngredientControllerTest {
     void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        ingredientController = new IngredientController(recipeService);
+        ingredientController = new IngredientController(recipeService, ingredientService);
 
         mockMvc = MockMvcBuilders.standaloneSetup(ingredientController).build();
     }
@@ -44,9 +48,21 @@ class IngredientControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders.get("/recipe/1/ingredients"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("/recipe/ingredient/list"))
+                .andExpect(view().name("recipe/ingredient/list"))
                 .andExpect(model().attributeExists("recipe"));
 
         verify(recipeService, times(1)).findCommandById(anyLong());
+    }
+
+    @Test
+    public void showIngredients() throws Exception {
+        IngredientCommand ingredientCommand = new IngredientCommand();
+
+        when(ingredientService.findByRecipeIdAndIngredientId(anyLong(), anyLong())).thenReturn(ingredientCommand);
+        mockMvc.perform(MockMvcRequestBuilders.get("/recipe/1/ingredient/2/show"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("recipe/ingredient/show"))
+                .andExpect(model().attributeExists("ingredient"));
+
     }
 }
