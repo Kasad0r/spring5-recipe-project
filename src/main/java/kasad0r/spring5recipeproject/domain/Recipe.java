@@ -1,6 +1,7 @@
 package kasad0r.spring5recipeproject.domain;
 
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -12,7 +13,8 @@ import java.util.Set;
  * @project spring5-recipe-project
  */
 @lombok.Data
-@EqualsAndHashCode(exclude = {"ingredients","categories"})
+@ToString(exclude = {"categories", "ingredients"})
+@EqualsAndHashCode(exclude = {"ingredients", "categories"})
 @Entity
 public class Recipe {
     @Id

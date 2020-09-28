@@ -4,6 +4,7 @@ import kasad0r.spring5recipeproject.commands.IngredientCommand;
 import kasad0r.spring5recipeproject.commands.RecipeCommand;
 import kasad0r.spring5recipeproject.services.IngredientService;
 import kasad0r.spring5recipeproject.services.RecipeService;
+import kasad0r.spring5recipeproject.services.UnitOfMeasureService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -28,6 +29,9 @@ class IngredientControllerTest {
 
     @Mock
     IngredientService ingredientService;
+    @Mock
+    UnitOfMeasureService unitOfMeasureService;
+
     IngredientController ingredientController;
 
     MockMvc mockMvc;
@@ -36,7 +40,7 @@ class IngredientControllerTest {
     void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        ingredientController = new IngredientController(recipeService, ingredientService);
+        ingredientController = new IngredientController(recipeService, ingredientService, unitOfMeasureService);
 
         mockMvc = MockMvcBuilders.standaloneSetup(ingredientController).build();
     }
