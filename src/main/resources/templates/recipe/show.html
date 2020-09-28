@@ -85,17 +85,24 @@
                 </div>
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h1 class="panel-title">Ingredients</h1>
-                    </div>
-                    <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-12">
-                                <ul>
-                                    <li th:each="ingredient : ${recipe.ingredients}"
-                                        th:text="${ingredient.amount} + ' ' + ${ingredient.unitOfMeasure.description} + ' of ' + ${ingredient.description}"></li>
-                                </ul>
+                            <div class="col-md-11 ">
+                                <h1 class="panel-title">Ingredients</h1>
+                            </div>
+                            <div class="col-md-1">
+                                <a class="btn btn-default" href="#"
+                                   th:href="@{'/recipe/' + ${recipe.id} + '/ingredients'}" role="button">View</a>
                             </div>
                         </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <ul>
+                                        <li th:each="ingredient : ${recipe.ingredients}"
+                                            th:text="${ingredient.amount} + ' ' + ${ingredient.unitOfMeasure.description} + ' of ' + ${ingredient.description}"></li>
+                                    </ul>
+                                </div>
+                            </div>
                     </div>
                 </div>
                 <div class="panel panel-primary">
