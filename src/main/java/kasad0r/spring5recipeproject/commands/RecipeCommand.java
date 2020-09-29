@@ -4,6 +4,7 @@ import kasad0r.spring5recipeproject.domain.Difficulty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,6 +16,7 @@ import java.util.Set;
  */
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 public class RecipeCommand {
     private Long id;

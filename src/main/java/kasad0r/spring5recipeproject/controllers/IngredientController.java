@@ -36,6 +36,7 @@ public class IngredientController {
 
     @GetMapping("/recipe/{recipeId}/ingredients")
     public String listIngredients(@PathVariable String recipeId, Model model) {
+        System.out.println(recipeService.findCommandById(Long.valueOf(recipeId)).getIngredients());
         model.addAttribute("recipe", recipeService.findCommandById(Long.valueOf(recipeId)));
 
         return "recipe/ingredient/list";
@@ -55,7 +56,6 @@ public class IngredientController {
                                          @PathVariable String recipeId,
                                          Model model) {
         model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(Long.valueOf(recipeId), Long.valueOf(id)));
-        System.out.println(((IngredientCommand) model.getAttribute("ingredient")).getRecipeId());
         model.addAttribute("uomList", unitOfMeasureService.findAll());
         return "/recipe/ingredient/ingredientform";
     }
@@ -63,7 +63,7 @@ public class IngredientController {
     @PostMapping("/recipe/{recipeId}/ingredient")
     public String saveOrUpdate(@ModelAttribute IngredientCommand command) {
         IngredientCommand savedCommand = ingredientService.saveIngredientCommand(command);
-        System.out.println(command);
+
         return "redirect:/recipe/" + savedCommand.getRecipeId() + "/ingredient/" + savedCommand.getId() + "/show";
     }
 
@@ -78,5 +78,13 @@ public class IngredientController {
         model.addAttribute("uomList", unitOfMeasureService.findAll());
 
         return "recipe/ingredient/ingredientform";
+    }
+
+    @GetMapping("recipe/{recipeId}/ingredient/{ingredientId}/delete")
+    public String deleteIngredient(@PathVariable String recipeId,
+                                   @PathVariable String ingredientId) {
+        ingredientService.deleteById(Long.valueOf(recipeId), Long.valueOf(ingredientId));
+        return "redirect:/recipe/" + recipeId + "/ingredients";
+
     }
 }
