@@ -86,17 +86,26 @@ public class IngredientServiceImpl implements IngredientService {
                         .findById(command.getUnitOfMeasure().getId())
                         .orElseThrow(() -> new RuntimeException("UOM NOT FOUND"))); //todo address this
             } else {
-                //add new Ingredient
-                recipe.addIngredient(ingredientCommandToIngredient.convert(command));
+                Ingredient ingredient = ingredientCommandToIngredient.convert(command);
+                ingredient.setRecipe(recipe);
+                recipe.addIngredient(ingredient);
             }
 
             Recipe savedRecipe = recipeRepository.save(recipe);
 
-            //to do check for fail
-            return ingredientToIngredientCommand.convert(savedRecipe.getIngredients().stream()
+            Optional<Ingredient> savedIngredientOptional = savedRecipe.getIngredients().stream()
                     .filter(recipeIngredients -> recipeIngredients.getId().equals(command.getId()))
-                    .findFirst()
-                    .get());
+                    .findFirst();
+
+            if (savedIngredientOptional.isEmpty()) {
+                savedIngredientOptional = savedRecipe.getIngredients().stream()
+                        .filter(reciIngr -> reciIngr.getDescription().equals(command.getDescription()))
+                        .filter(reciIngr -> reciIngr.getAmount().equals(command.getAmount()))
+                        .filter(reciIngr -> reciIngr.getUnitOfMeasure().getId().equals(command.getUnitOfMeasure().getId()))
+                        .findFirst();
+            }
+            //to do check for fail
+            return ingredientToIngredientCommand.convert(savedIngredientOptional.orElseThrow(RuntimeException::new));
         }
 
     }

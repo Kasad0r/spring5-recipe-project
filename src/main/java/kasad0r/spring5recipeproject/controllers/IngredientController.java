@@ -1,6 +1,8 @@
 package kasad0r.spring5recipeproject.controllers;
 
 import kasad0r.spring5recipeproject.commands.IngredientCommand;
+import kasad0r.spring5recipeproject.commands.RecipeCommand;
+import kasad0r.spring5recipeproject.commands.UnitOfMeasureCommand;
 import kasad0r.spring5recipeproject.services.IngredientService;
 import kasad0r.spring5recipeproject.services.RecipeService;
 import kasad0r.spring5recipeproject.services.UnitOfMeasureService;
@@ -62,6 +64,19 @@ public class IngredientController {
     public String saveOrUpdate(@ModelAttribute IngredientCommand command) {
         IngredientCommand savedCommand = ingredientService.saveIngredientCommand(command);
         System.out.println(command);
-        return "redirect:/recipe/" + command.getRecipeId() + "/ingredient/" + command.getId() + "/show";
+        return "redirect:/recipe/" + savedCommand.getRecipeId() + "/ingredient/" + savedCommand.getId() + "/show";
+    }
+
+    @GetMapping("recipe/{recipeId}/ingredient/new")
+    public String newRecipe(@PathVariable String recipeId,
+                            Model model) {
+        RecipeCommand recipeCommand = recipeService.findCommandById(Long.valueOf(recipeId));
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setRecipeId(Long.valueOf(recipeId));
+        model.addAttribute("ingredient", ingredientCommand);
+        ingredientCommand.setUnitOfMeasure(new UnitOfMeasureCommand());
+        model.addAttribute("uomList", unitOfMeasureService.findAll());
+
+        return "recipe/ingredient/ingredientform";
     }
 }
