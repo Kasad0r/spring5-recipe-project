@@ -26,6 +26,10 @@
                     <div class="panel-heading">
                         <h1 class="panel-title" th:text="${recipe.description}">Recipe Description Here!</h1>
                     </div>
+                    <div class="col-md-1">
+                        <a class="btn btn-default" href="#"
+                           th:href="@{'/recipe/' + ${recipe.id} + '/image'}" role="button">Change Image</a>
+                    </div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-3">
@@ -33,10 +37,17 @@
                             </div>
                             <div class="col-md-9">
                                 <ul>
+                                    <li th:remove="all">cat one</li>
+                                    <li th:remove="all">cat two</li>
                                     <li th:each="category : ${recipe.categories}" th:text="${category.description}">
                                         category
                                     </li>
                                 </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <img src="../../static/images/guacamole-400x400.jpeg"
+                                     th:src="@{/images/guacamole-400x400.jpeg}"
+                                     width="200" height="200">
                             </div>
                         </div>
                         <div class="row">
@@ -103,28 +114,29 @@
                                     </ul>
                                 </div>
                             </div>
+                        </div>
                     </div>
-                </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h1 class="panel-title">Directions</h1>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <p th:text="${recipe.directions}"></p>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Directions</h1>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p th:text="${recipe.directions}"></p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h1 class="panel-title">Notes</h1>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <p th:text="${recipe.notes.recipeNotes}"></p>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Notes</h1>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p th:text="${recipe.notes.recipeNotes}"></p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -132,6 +144,5 @@
             </div>
         </div>
     </div>
-</div>
 </body>
 </html>
