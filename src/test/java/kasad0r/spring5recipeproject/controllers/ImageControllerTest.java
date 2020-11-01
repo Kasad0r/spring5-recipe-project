@@ -1,6 +1,7 @@
 package kasad0r.spring5recipeproject.controllers;
 
 import kasad0r.spring5recipeproject.commands.RecipeCommand;
+import kasad0r.spring5recipeproject.repositories.RecipeRepository;
 import kasad0r.spring5recipeproject.services.ImageService;
 import kasad0r.spring5recipeproject.services.RecipeService;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,8 +29,11 @@ class ImageControllerTest {
 
   @Mock
   RecipeService recipeService;
+  @Mock
+  RecipeRepository recipeRepository;
 
   ImageController imageController;
+
   MockMvc mockMvc;
 
   @BeforeEach
